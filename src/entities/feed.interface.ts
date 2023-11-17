@@ -6,4 +6,5 @@ export interface IFeed {
   author?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  scrapped?: boolean;
 }

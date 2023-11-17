@@ -10,6 +10,7 @@ export class FeedEntity {
     author: { type: String, required: false },
     createdAt: { type: Date, required: false, default: Date.now },
     updatedAt: { type: Date, required: false, default: Date.now },
+    scrapped: { type: Boolean, required: false, default: false },
   });
 
   private static feedModel: Model<IFeed> = model<IFeed>(
