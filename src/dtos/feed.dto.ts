@@ -1,23 +1,51 @@
-interface CreateFeedDto {
-  title: string;
-  link: string;
+import { IsString, IsOptional, IsUrl, IsDateString, IsBoolean } from 'class-validator';
+class CreateFeedDto {
+  @IsString()
+  title!: string;
+
+  @IsUrl()
+  link!: string;
+
+  @IsOptional()
+  @IsString()
   author?: string;
+
+  @IsOptional()
+  @IsUrl()
   image?: string;
-  datePublished: Date;
+
+  @IsDateString()
+  datePublished!: Date;
+
+  @IsOptional()
+  @IsBoolean()
   scrapped?: boolean;
+
+  @IsOptional()
+  @IsString()
   description?: string;
 }
 
-interface UpdateFeedDto {
+class UpdateFeedDto {
+  @IsOptional()
+  @IsString()
   title?: string;
+
+  @IsOptional()
+  @IsUrl()
   link?: string;
+
+  @IsOptional()
+  @IsString()
   author?: string;
+
+  @IsOptional()
+  @IsUrl()
   image?: string;
+
+  @IsOptional()
+  @IsDateString()
   datePublished?: Date;
 }
 
-interface GetFeedDto {
-  id: string;
-}
-
-export type { CreateFeedDto, UpdateFeedDto, GetFeedDto };
+export { CreateFeedDto, UpdateFeedDto };
