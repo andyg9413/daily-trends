@@ -4,37 +4,56 @@ import { IFeed } from '../entities/feed.interface';
 import { mapArticleToFeed } from './scrapper.transform';
 
 export class ScrapperService {
-  private readonly elpaisService: NewsSite;
-  private readonly elmundoService: NewsSite;
+  private readonly elPaisService: NewsSite;
+  private readonly elMundoService: NewsSite;
 
   constructor({
-    elpaisService,
-    elmundoService,
+    elPaisService,
+    elMundoService,
   }: {
-    elpaisService: NewsSite;
-    elmundoService: NewsSite;
+    elPaisService: NewsSite;
+    elMundoService: NewsSite;
+  }) {
+    this.elPaisService = elPaisService;
+    this.elMundoService = elMundoService;
+  }
+
+  /*
+  private readonly newsService: NewsSite[];
+
+  constructor({
+    newsService,
+  }: {
+    newsService : [
+      elpaisService: NewsSite,
+      elmundoService: NewsSite
+    ];
+
   }) {
     this.elpaisService = elpaisService;
     this.elmundoService = elmundoService;
   }
+   */
 
   async getAndSaveAllFeeds(limit?: number): Promise<IFeed[]> {
     try {
-      const newsElpais: IArticle[] = await this.elpaisService.readFeeds(limit);
 
-      const newsElmundo: IArticle[] =
-        await this.elmundoService.readFeeds(limit);
+      // for to loop through the all the newsService sites
+      const newsElPais: IArticle[] = await this.elPaisService.readFeeds(limit);
 
-      const elpaisFeeds: IFeed[] = (
-        limit ? newsElpais.slice(0, limit) : newsElpais
+      const newsElMundo: IArticle[] =
+        await this.elMundoService.readFeeds(limit);
+
+      const elPaisFeeds: IFeed[] = (
+        limit ? newsElPais.slice(0, limit) : newsElPais
       ).map(mapArticleToFeed);
-      const elmundoFeeds: IFeed[] = (
-        limit ? newsElmundo.slice(0, limit) : newsElmundo
+      const elMundoFeeds: IFeed[] = (
+        limit ? newsElMundo.slice(0, limit) : newsElMundo
       ).map(mapArticleToFeed);
 
-      return [...elpaisFeeds, ...elmundoFeeds];
+      return [ ...elPaisFeeds, ...elMundoFeeds ];
     } catch (error) {
-      throw new Error('Error getting and saving feeds');
+        throw error;
     }
   }
 }

@@ -39,9 +39,11 @@ export abstract class NewsSite {
           description: article.body,
           isDeleted: false,
         });
+
         if (existingFeed) {
           continue;
         }
+
         await this.feedService.addFeed({
           ...article,
           datePublished: new Date(Date.now()),
