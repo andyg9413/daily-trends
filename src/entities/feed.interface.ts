@@ -8,4 +8,5 @@ export interface IFeed {
   updatedAt?: Date;
   scrapped?: boolean;
   isDeleted?: boolean;
+  description?: string;
 }

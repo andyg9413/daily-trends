@@ -4,6 +4,8 @@ interface CreateFeedDto {
   author?: string;
   image?: string;
   datePublished: Date;
+  scrapped?: boolean;
+  description?: string;
 }
 
 interface UpdateFeedDto {
