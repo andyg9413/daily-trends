@@ -3,9 +3,9 @@ import { FeedService } from './services/feed.service';
 import { FeedRepository } from './repositories/feed.repository';
 import { FeedEntity } from './entities/feed.entity';
 import { FeedController } from './controllers/feed.controller';
-import {ScrapperService} from "./scrapping/scrapper.service";
-import {ElpaisService} from "./scrapping/elpais.service";
-import {ElmundoService} from "./scrapping/elmundo.service";
+import { ScrapperService } from './scrapping/scrapper.service';
+import { ElpaisService } from './scrapping/elpais.service';
+import { ElmundoService } from './scrapping/elmundo.service';
 
 const container = createContainer();
 

@@ -3,13 +3,19 @@ import { DELETE, GET, PATCH, POST, route } from 'awilix-express';
 import { IFeed } from '../entities/feed.interface';
 import { Request, Response } from 'express';
 import { CreateFeedDto, GetFeedDto, UpdateFeedDto } from '../dtos/feed.dto';
-import {ScrapperService} from "../scrapping/scrapper.service";
+import { ScrapperService } from '../scrapping/scrapper.service';
 
 @route('/feeds')
 export class FeedController {
   private readonly feedService: FeedService;
   private readonly scrapperService: ScrapperService;
-  constructor({ feedService, scrapperService }: { feedService: FeedService; scrapperService: ScrapperService }) {
+  constructor({
+    feedService,
+    scrapperService,
+  }: {
+    feedService: FeedService;
+    scrapperService: ScrapperService;
+  }) {
     this.feedService = feedService;
     this.scrapperService = scrapperService;
   }
@@ -50,22 +56,22 @@ export class FeedController {
   @GET()
   @route('/dashboard/news')
   async dashboard(req: Request, res: Response) {
-      try {
-          res.send(await this.scrapperService.getAndSaveAllFeeds(5));
-      } catch (error) {
-          console.error('Error getting and saving feeds:', error);
-          res.status(400).send({ message: 'Error getting and saving feeds' });
-      }
+    try {
+      res.send(await this.scrapperService.getAndSaveAllFeeds(5));
+    } catch (error) {
+      console.error('Error getting and saving feeds:', error);
+      res.status(400).send({ message: 'Error getting and saving feeds' });
+    }
   }
 
-    @POST()
-    @route('/scrap')
-    async scrapFeed(req: Request, res: Response) {
-        try {
-            res.send(await this.scrapperService.getAndSaveAllFeeds());
-        } catch (error) {
-            console.error('Error getting and saving feeds:', error);
-            res.status(400).send({ message: 'Error getting and saving feeds' });
-        }
+  @POST()
+  @route('/scrap')
+  async scrapFeed(req: Request, res: Response) {
+    try {
+      res.send(await this.scrapperService.getAndSaveAllFeeds());
+    } catch (error) {
+      console.error('Error getting and saving feeds:', error);
+      res.status(400).send({ message: 'Error getting and saving feeds' });
     }
+  }
 }
