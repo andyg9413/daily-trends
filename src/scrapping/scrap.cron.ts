@@ -6,7 +6,6 @@ export class ScrapCron {
     }
 
     start(): void {
-        console.log("kk")
         this.scheduledTask.start();
     }
 

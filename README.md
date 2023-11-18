@@ -16,12 +16,15 @@ API to expose news feeds from different sources.
 2. Navigate to the project directory:
    `cd daily-trends`
 
-3. Build the project:
+3. Install the dependencies:
+   `npm install`
+
+4. Build the project:
    `npm run build`
 
-4. Configure your database connection by creating an `.env` file in the root folder. You can use the `.env.example`
+5. Configure your database connection by creating an `.env` file in the root folder. You can use the `.env.example`
 
-5. Run the application:
+6. Run the application:
    `npm run start`
 
 ## Usage
