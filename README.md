@@ -37,13 +37,21 @@ To run the application in development mode, you can use the following command:
 
 ### Configuration
 
-// TODO: Add configuration options
-
-### Command-line options
-// TODO: Add command-line options
+The application needs to be configured using the following environment variables:
+- `PORT`: The port where the application will be running
+- `MONGO_DB_URI`: The URI of the MongoDB database
+- `EL_PAIS_URL`: The URL of the El Pais
+- `EL_MUNDO_URL`: The URL of the El Mundo
 
 ### Endpoints
-// TODO: Add endpoints
+The application exposes the following endpoints:
+- `GET /feeds`: Returns the list of feeds
+- `GET /feeds/:id`: Returns the feed with the given id
+- `POST /feeds`: Creates a new feed
+- `PUT /feeds/:id`: Updates the feed with the given id
+- `DELETE /feeds/:id`: Deletes the feed with the given id
+- `GET /feeds/dashboard/news`: Returns the n most recent news from the newspapers configured
+- `POST /feeds/scrap`: Scrap the news from the newspapers configured and store them in the database
 
 ## Testing
 
