@@ -56,12 +56,12 @@ export class FeedController {
   @GET()
   @route('/dashboard/news')
   async dashboard(req: Request, res: Response) {
-      res.send(await this.scrapperService.getAndSaveAllFeeds(5));
+    res.send(await this.scrapperService.getAndSaveAllFeeds(5));
   }
 
   @POST()
   @route('/scrap')
   async scrapFeed(req: Request, res: Response) {
-      res.send(await this.scrapperService.getAndSaveAllFeeds());
+    res.send(await this.scrapperService.getAndSaveAllFeeds());
   }
 }

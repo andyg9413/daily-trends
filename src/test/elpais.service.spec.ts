@@ -51,16 +51,18 @@ describe('ElpaisService', () => {
     fetchHtmlSpy.mockRestore();
   });
 
-    it('should throw an error when fetchHtml fails', async () => {
+  it('should throw an error when fetchHtml fails', async () => {
     const fetchHtmlSpy = jest.spyOn(elPaisService as any, 'fetchHtml');
     fetchHtmlSpy.mockRejectedValue(new Error('Error fetching HTML'));
 
-    await expect(elPaisService.readFeeds()).rejects.toThrowError('Error fetching HTML');
+    await expect(elPaisService.readFeeds()).rejects.toThrowError(
+      'Error fetching HTML',
+    );
 
     expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
 
     fetchHtmlSpy.mockRestore();
-    });
+  });
 
   it('should read feeds from El Pais with a limit', async () => {
     const fetchHtmlSpy = jest.spyOn(elPaisService as any, 'fetchHtml');

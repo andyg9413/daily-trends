@@ -1,4 +1,10 @@
-import { IsString, IsOptional, IsUrl, IsDateString, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsUrl,
+  IsDateString,
+  IsBoolean,
+} from 'class-validator';
 class CreateFeedDto {
   @IsString()
   title!: string;

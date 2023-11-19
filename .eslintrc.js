@@ -10,7 +10,6 @@ module.exports = {
     plugins: ['@typescript-eslint', 'prettier'],
     extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
     rules: {
-        indent: ['error', 2, { SwitchCase: 1 }],
         quotes: ['error', 'single', { allowTemplateLiterals: true }],
         semi: ['error', 'always'],
         'linebreak-style': ['error', 'unix'],

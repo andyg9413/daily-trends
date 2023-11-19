@@ -36,24 +36,17 @@ export class ScrapperService {
    */
 
   async getAndSaveAllFeeds(limit?: number): Promise<IFeed[]> {
-    try {
+    const newsElPais: IArticle[] = await this.elPaisService.readFeeds(limit);
 
-      // for to loop through the all the newsService sites
-      const newsElPais: IArticle[] = await this.elPaisService.readFeeds(limit);
+    const newsElMundo: IArticle[] = await this.elMundoService.readFeeds(limit);
 
-      const newsElMundo: IArticle[] =
-        await this.elMundoService.readFeeds(limit);
+    const elPaisFeeds: IFeed[] = (
+      limit ? newsElPais.slice(0, limit) : newsElPais
+    ).map(mapArticleToFeed);
+    const elMundoFeeds: IFeed[] = (
+      limit ? newsElMundo.slice(0, limit) : newsElMundo
+    ).map(mapArticleToFeed);
 
-      const elPaisFeeds: IFeed[] = (
-        limit ? newsElPais.slice(0, limit) : newsElPais
-      ).map(mapArticleToFeed);
-      const elMundoFeeds: IFeed[] = (
-        limit ? newsElMundo.slice(0, limit) : newsElMundo
-      ).map(mapArticleToFeed);
-
-      return [ ...elPaisFeeds, ...elMundoFeeds ];
-    } catch (error) {
-        throw error;
-    }
+    return [...elPaisFeeds, ...elMundoFeeds];
   }
 }
