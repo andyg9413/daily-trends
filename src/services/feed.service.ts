@@ -18,7 +18,7 @@ export class FeedService {
     return this.feedRepository.getFeed(id);
   }
   async updateFeed(id: string, feed: UpdateFeedDto): Promise<IFeed> {
-    return this.getFeed(id);
+    return this.feedRepository.updateFeed(id, feed);
   }
   async deleteFeed(id: string): Promise<boolean> {
     return this.feedRepository.deleteFeed(id);
