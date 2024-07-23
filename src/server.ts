@@ -1,6 +1,8 @@
 import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { loadControllers, scopePerRequest } from 'awilix-express';
+import { container } from './container';
 
 dotenv.config();
 
@@ -15,6 +17,10 @@ mongoose
   .catch((err) => console.error(err));
 
 app.use(express.json());
+
+app.use(scopePerRequest(container));
+
+app.use(loadControllers('controllers/*.ts', { cwd: __dirname }));
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
