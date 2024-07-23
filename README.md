@@ -6,6 +6,7 @@ API to expose news feeds from different sources.
 
 - Node 16 or later
 - Npm 8 or later
+- Typescript 4.4 or later
 
 ## Installation
 
