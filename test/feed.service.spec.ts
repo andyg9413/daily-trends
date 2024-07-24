@@ -51,6 +51,7 @@ describe('FeedService', () => {
     mockFeedRepository.getFeed.mockResolvedValue(mockFeed);
 
     const result = await feedService.getFeed('someId');
+    console.log(result);
 
     expect(result).toEqual(mockFeed);
     expect(mockFeedRepository.getFeed).toHaveBeenCalledWith('someId');
@@ -67,6 +68,7 @@ describe('FeedService', () => {
       {} as UpdateFeedDto,
     );
   });
+
   it('should delete a feed', async () => {
     mockFeedRepository.deleteFeed.mockResolvedValue(true);
 
@@ -74,5 +76,93 @@ describe('FeedService', () => {
 
     expect(result).toBeTruthy();
     expect(mockFeedRepository.deleteFeed).toHaveBeenCalledWith('someId');
+  });
+
+  it('should find a feed', async () => {
+    mockFeedRepository.findOneFeed.mockResolvedValue(mockFeed);
+
+    const result = await feedService.findOneFeed({} as Partial<IFeed>);
+
+    expect(result).toEqual(mockFeed);
+    expect(mockFeedRepository.findOneFeed).toHaveBeenCalledWith(
+      {} as Partial<IFeed>,
+    );
+  });
+
+  it('should throw an error when getFeeds fails', async () => {
+    mockFeedRepository.getFeeds.mockRejectedValue(
+      new Error('Error getting feeds'),
+    );
+
+    await expect(feedService.getFeeds()).rejects.toThrowError(
+      'Error getting feeds',
+    );
+
+    expect(mockFeedRepository.getFeeds).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw an error when addFeed fails', async () => {
+    mockFeedRepository.addFeed.mockRejectedValue(
+      new Error('Error adding feed'),
+    );
+
+    await expect(feedService.addFeed({} as CreateFeedDto)).rejects.toThrowError(
+      'Error adding feed',
+    );
+
+    expect(mockFeedRepository.addFeed).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw an error when getFeed fails', async () => {
+    mockFeedRepository.getFeed.mockRejectedValue(
+      new Error('Error getting feed'),
+    );
+
+    await expect(feedService.getFeed('someId')).rejects.toThrowError(
+      'Error getting feed',
+    );
+
+    expect(mockFeedRepository.getFeed).toHaveBeenCalledWith('someId');
+  });
+
+  it('should throw an error when updateFeed fails', async () => {
+    mockFeedRepository.updateFeed.mockRejectedValue(
+      new Error('Error updating feed'),
+    );
+
+    await expect(
+      feedService.updateFeed('someId', {} as UpdateFeedDto),
+    ).rejects.toThrowError('Error updating feed');
+
+    expect(mockFeedRepository.updateFeed).toHaveBeenCalledWith(
+      'someId',
+      {} as UpdateFeedDto,
+    );
+  });
+
+  it('should throw an error when deleteFeed fails', async () => {
+    mockFeedRepository.deleteFeed.mockRejectedValue(
+      new Error('Error deleting feed'),
+    );
+
+    await expect(feedService.deleteFeed('someId')).rejects.toThrowError(
+      'Error deleting feed',
+    );
+
+    expect(mockFeedRepository.deleteFeed).toHaveBeenCalledWith('someId');
+  });
+
+  it('should throw an error when findOneFeed fails', async () => {
+    mockFeedRepository.findOneFeed.mockRejectedValue(
+      new Error('Error finding feed'),
+    );
+
+    await expect(
+      feedService.findOneFeed({} as Partial<IFeed>),
+    ).rejects.toThrowError('Error finding feed');
+
+    expect(mockFeedRepository.findOneFeed).toHaveBeenCalledWith(
+      {} as Partial<IFeed>,
+    );
   });
 });

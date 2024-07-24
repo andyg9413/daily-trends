@@ -9,8 +9,8 @@ import * as path from 'path';
 jest.mock('../src/repositories/feed.repository');
 jest.mock('../src/entities/feed.entity');
 
-const elmundoHtmlPath = path.join(__dirname, 'utils/elmundo.html');
-const elmundoHtml = fs.readFileSync(elmundoHtmlPath, 'utf-8');
+const elMundoHtmlPath = path.join(__dirname, 'utils/elmundo.html');
+const elMundoHtml = fs.readFileSync(elMundoHtmlPath, 'utf-8');
 
 const mockFeedRepository = new FeedRepository({
   feedEntity: new FeedEntity(),
@@ -20,7 +20,7 @@ const mockFeedService = new FeedService({
   feedRepository: mockFeedRepository,
 }) as jest.Mocked<FeedService>;
 
-const elmundoService = new ElMundoService({
+const elMundoService = new ElMundoService({
   feedService: mockFeedService,
 }) as jest.Mocked<ElMundoService>;
 
@@ -30,7 +30,7 @@ describe('ElMundoService', () => {
   });
 
   it('should extract articles from El Mundo HTML', () => {
-    const articles: IArticle[] = elmundoService.extractArticles(elmundoHtml);
+    const articles: IArticle[] = elMundoService.extractArticles(elMundoHtml);
 
     expect(articles.length).toBeGreaterThan(0);
     expect(articles[0].title).toBeDefined();
@@ -41,15 +41,39 @@ describe('ElMundoService', () => {
 
   it('should read feeds from El Mundo', async () => {
     // Spy on the private method fetchHtml
-    const fetchHtmlSpy = jest.spyOn(elmundoService as any, 'fetchHtml');
-    fetchHtmlSpy.mockResolvedValue(elmundoHtml);
+    const fetchHtmlSpy = jest.spyOn(elMundoService as any, 'fetchHtml');
+    fetchHtmlSpy.mockResolvedValue(elMundoHtml);
 
-    const result = await elmundoService.readFeeds();
+    const result = await elMundoService.readFeeds();
 
     expect(result).toBeDefined();
     expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
 
-    // Don't forget to restore the original implementation after the test
+    fetchHtmlSpy.mockRestore();
+  });
+
+  it('should throw an error when fetchHtml fails', async () => {
+    const fetchHtmlSpy = jest.spyOn(elMundoService as any, 'fetchHtml');
+    fetchHtmlSpy.mockRejectedValue(new Error('Error fetching HTML'));
+
+    await expect(elMundoService.readFeeds()).rejects.toThrowError(
+      'Error fetching HTML',
+    );
+
+    expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
+
+    fetchHtmlSpy.mockRestore();
+  });
+
+  it('should read feeds from El Mundo with a limit', async () => {
+    const fetchHtmlSpy = jest.spyOn(elMundoService as any, 'fetchHtml');
+    fetchHtmlSpy.mockResolvedValue(elMundoHtml);
+
+    const result = await elMundoService.readFeeds(1);
+
+    expect(result).toBeDefined();
+    expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
+
     fetchHtmlSpy.mockRestore();
   });
 });

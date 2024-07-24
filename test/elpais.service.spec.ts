@@ -9,8 +9,8 @@ import * as path from 'path';
 jest.mock('../src/repositories/feed.repository');
 jest.mock('../src/entities/feed.entity');
 
-const elpaisHtmlPath = path.join(__dirname, 'utils/elpais.html');
-const elpaisHtml = fs.readFileSync(elpaisHtmlPath, 'utf-8');
+const elPaisHtmlPath = path.join(__dirname, 'utils/elpais.html');
+const elPaisHtml = fs.readFileSync(elPaisHtmlPath, 'utf-8');
 
 const mockFeedRepository = new FeedRepository({
   feedEntity: new FeedEntity(),
@@ -20,17 +20,17 @@ const mockFeedService = new FeedService({
   feedRepository: mockFeedRepository,
 }) as jest.Mocked<FeedService>;
 
-const elpaisService = new ElPaisService({
+const elPaisService = new ElPaisService({
   feedService: mockFeedService,
 }) as jest.Mocked<ElPaisService>;
 
-describe('ElPaisService', () => {
+describe('ElpaisService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should extract articles from El Pais HTML', () => {
-    const articles: IArticle[] = elpaisService.extractArticles(elpaisHtml);
+    const articles: IArticle[] = elPaisService.extractArticles(elPaisHtml);
 
     expect(articles.length).toBeGreaterThan(0);
     expect(articles[0].title).toBeDefined();
@@ -40,10 +40,35 @@ describe('ElPaisService', () => {
   });
 
   it('should read feeds from El Pais', async () => {
-    const fetchHtmlSpy = jest.spyOn(elpaisService as any, 'fetchHtml');
-    fetchHtmlSpy.mockResolvedValue(elpaisHtml);
+    const fetchHtmlSpy = jest.spyOn(elPaisService as any, 'fetchHtml');
+    fetchHtmlSpy.mockResolvedValue(elPaisHtml);
 
-    const result = await elpaisService.readFeeds();
+    const result = await elPaisService.readFeeds();
+
+    expect(result).toBeDefined();
+    expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
+
+    fetchHtmlSpy.mockRestore();
+  });
+
+  it('should throw an error when fetchHtml fails', async () => {
+    const fetchHtmlSpy = jest.spyOn(elPaisService as any, 'fetchHtml');
+    fetchHtmlSpy.mockRejectedValue(new Error('Error fetching HTML'));
+
+    await expect(elPaisService.readFeeds()).rejects.toThrowError(
+      'Error fetching HTML',
+    );
+
+    expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
+
+    fetchHtmlSpy.mockRestore();
+  });
+
+  it('should read feeds from El Pais with a limit', async () => {
+    const fetchHtmlSpy = jest.spyOn(elPaisService as any, 'fetchHtml');
+    fetchHtmlSpy.mockResolvedValue(elPaisHtml);
+
+    const result = await elPaisService.readFeeds(1);
 
     expect(result).toBeDefined();
     expect(fetchHtmlSpy).toHaveBeenCalledTimes(1);
