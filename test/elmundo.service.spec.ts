@@ -1,4 +1,4 @@
-import { ElmundoService } from '../src/scrapping/elmundo.service';
+import { ElMundoService } from '../src/scrapping/elmundo.service';
 import { IArticle } from '../src/scrapping/article.interface';
 import { FeedRepository } from '../src/repositories/feed.repository';
 import { FeedEntity } from '../src/entities/feed.entity';
@@ -20,11 +20,11 @@ const mockFeedService = new FeedService({
   feedRepository: mockFeedRepository,
 }) as jest.Mocked<FeedService>;
 
-const elmundoService = new ElmundoService({
+const elmundoService = new ElMundoService({
   feedService: mockFeedService,
-}) as jest.Mocked<ElmundoService>;
+}) as jest.Mocked<ElMundoService>;
 
-describe('ElmundoService', () => {
+describe('ElMundoService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

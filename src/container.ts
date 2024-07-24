@@ -4,8 +4,8 @@ import { FeedRepository } from './repositories/feed.repository';
 import { FeedEntity } from './entities/feed.entity';
 import { FeedController } from './controllers/feed.controller';
 import { ScrapperService } from './scrapping/scrapper.service';
-import { ElpaisService } from './scrapping/elpais.service';
-import { ElmundoService } from './scrapping/elmundo.service';
+import { ElPaisService } from './scrapping/elpais.service';
+import { ElMundoService } from './scrapping/elmundo.service';
 
 const container = createContainer();
 
@@ -15,8 +15,8 @@ container.register({
   feedEntity: asClass(FeedEntity),
   feedController: asClass(FeedController).singleton(),
   scrapperService: asClass(ScrapperService).singleton(),
-  elpaisService: asClass(ElpaisService).singleton(),
-  elmundoService: asClass(ElmundoService).singleton(),
+  elPaisService: asClass(ElPaisService).singleton(),
+  elMundoService: asClass(ElMundoService).singleton(),
 });
 
 export { container };

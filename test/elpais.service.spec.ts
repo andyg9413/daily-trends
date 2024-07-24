@@ -1,4 +1,4 @@
-import { ElpaisService } from '../src/scrapping/elpais.service';
+import { ElPaisService } from '../src/scrapping/elpais.service';
 import { IArticle } from '../src/scrapping/article.interface';
 import { FeedRepository } from '../src/repositories/feed.repository';
 import { FeedEntity } from '../src/entities/feed.entity';
@@ -20,11 +20,11 @@ const mockFeedService = new FeedService({
   feedRepository: mockFeedRepository,
 }) as jest.Mocked<FeedService>;
 
-const elpaisService = new ElpaisService({
+const elpaisService = new ElPaisService({
   feedService: mockFeedService,
-}) as jest.Mocked<ElpaisService>;
+}) as jest.Mocked<ElPaisService>;
 
-describe('ElpaisService', () => {
+describe('ElPaisService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

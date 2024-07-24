@@ -2,7 +2,7 @@ import { NewsSite } from './news-site.service';
 import { IArticle } from './article.interface';
 import * as cheerio from 'cheerio';
 
-export class ElmundoService extends NewsSite {
+export class ElMundoService extends NewsSite {
   protected url: string = process.env.EL_MUNDO_URL || '';
 
   extractArticles(html: string): IArticle[] {

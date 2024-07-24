@@ -1,7 +1,7 @@
-import { ElpaisService } from '../src/scrapping/elpais.service';
+import { ElPaisService } from '../src/scrapping/elpais.service';
 import { IArticle } from '../src/scrapping/article.interface';
 import { ScrapperService } from '../src/scrapping/scrapper.service';
-import { ElmundoService } from '../src/scrapping/elmundo.service';
+import { ElMundoService } from '../src/scrapping/elmundo.service';
 import { FeedRepository } from '../src/repositories/feed.repository';
 import { FeedEntity } from '../src/entities/feed.entity';
 import { FeedService } from '../src/services/feed.service';
@@ -28,16 +28,16 @@ const mockFeedService = new FeedService({
   feedRepository: mockFeedRepository,
 }) as jest.Mocked<FeedService>;
 
-const mockElpaisService = new ElpaisService({
+const mockElpaisService = new ElPaisService({
   feedService: mockFeedService,
-}) as jest.Mocked<ElpaisService>;
-const mockElmundoService = new ElmundoService({
+}) as jest.Mocked<ElPaisService>;
+const mockElmundoService = new ElMundoService({
   feedService: mockFeedService,
-}) as jest.Mocked<ElmundoService>;
+}) as jest.Mocked<ElMundoService>;
 
 const scrapperService = new ScrapperService({
-  elpaisService: mockElpaisService,
-  elmundoService: mockElmundoService,
+  elPaisService: mockElpaisService,
+  elMundoService: mockElmundoService,
 }) as jest.Mocked<ScrapperService>;
 
 describe('ScrapperService', () => {

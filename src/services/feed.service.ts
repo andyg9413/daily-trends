@@ -15,27 +15,14 @@ export class FeedService {
     return this.feedRepository.addFeed(feed);
   }
   async getFeed(id: string): Promise<IFeed> {
-    const feed: IFeed = await this.feedRepository.getFeed(id);
-    if (feed === null) {
-      throw new Error('Feed not found');
-    }
-    return feed;
+    return this.feedRepository.getFeed(id);
   }
   async updateFeed(id: string, feed: UpdateFeedDto): Promise<IFeed> {
-    const feedToUpdate: IFeed = await this.getFeed(id);
-    if (feedToUpdate === null) {
-      throw new Error('Feed not found');
-    }
-    return this.feedRepository.updateFeed(id, feed);
+    return this.getFeed(id);
   }
   async deleteFeed(id: string): Promise<boolean> {
-    const feedToDelete: IFeed = await this.getFeed(id);
-    if (feedToDelete === null) {
-      throw new Error('Feed not found');
-    }
     return this.feedRepository.deleteFeed(id);
   }
-
   async findOneFeed(feed: Partial<IFeed>): Promise<IFeed | null> {
     return this.feedRepository.findOneFeed(feed);
   }
