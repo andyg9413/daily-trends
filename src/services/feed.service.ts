@@ -8,8 +8,12 @@ export class FeedService {
     this.feedRepository = feedRepository;
   }
 
-  async getFeeds(): Promise<IFeed[]> {
-    return this.feedRepository.getFeeds();
+  async getFeeds(
+    page: number,
+    limit: number,
+  ): Promise<{ feeds: IFeed[]; total: number }> {
+    const feeds = await this.feedRepository.getFeeds(page, limit);
+    return { feeds, total: feeds.length };
   }
   async addFeed(feed: CreateFeedDto): Promise<IFeed> {
     return this.feedRepository.addFeed(feed);

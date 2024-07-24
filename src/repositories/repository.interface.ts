@@ -2,7 +2,7 @@ export interface IRepositoryInterface {}
 import { IFeed } from '../entities/feed.interface';
 
 export interface IRepositoryInterface {
-  getFeeds(): Promise<IFeed[]>;
+  getFeeds(page: number, limit: number): Promise<IFeed[]>;
   addFeed(feed: IFeed): Promise<IFeed>;
   getFeed(id: string): Promise<IFeed>;
   updateFeed(id: string, feed: IFeed): Promise<IFeed>;

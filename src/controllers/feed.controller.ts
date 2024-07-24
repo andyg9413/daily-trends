@@ -22,8 +22,13 @@ export class FeedController {
 
   @GET()
   @route('/')
-  async getFeeds(req: Request, res: Response<IFeed[]>) {
-    res.send(await this.feedService.getFeeds());
+  async getFeeds(
+    req: Request,
+    res: Response<{ feeds: IFeed[]; total: number }>,
+  ) {
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = parseInt(req.query.limit as string, 10) || 10;
+    res.send(await this.feedService.getFeeds(page, limit));
   }
 
   @POST()
