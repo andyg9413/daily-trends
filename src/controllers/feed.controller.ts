@@ -2,7 +2,12 @@ import { FeedService } from '../services/feed.service';
 import { DELETE, GET, PATCH, POST, route } from 'awilix-express';
 import { IFeed } from '../entities/feed.interface';
 import { Request, Response } from 'express';
-import { CreateFeedDto, GetAllDto, GetFeedDto, UpdateFeedDto } from '../dtos/feed.dto';
+import {
+  CreateFeedDto,
+  GetAllDto,
+  GetFeedDto,
+  UpdateFeedDto,
+} from '../dtos/feed.dto';
 
 @route('/feeds')
 export class FeedController {
