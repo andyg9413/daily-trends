@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-node-app
+    container_name: node-app
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_DB_URI: "${MONGO_DB_URI}"
+      PORT: "${PORT}"
+      EL_PAIS_URL: "${EL_PAIS_URL}"
+      EL_MUNDO_URL: "${EL_MUNDO_URL}"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
