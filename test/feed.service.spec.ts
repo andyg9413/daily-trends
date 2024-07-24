@@ -51,7 +51,6 @@ describe('FeedService', () => {
     mockFeedRepository.getFeed.mockResolvedValue(mockFeed);
 
     const result = await feedService.getFeed('someId');
-    console.log(result);
 
     expect(result).toEqual(mockFeed);
     expect(mockFeedRepository.getFeed).toHaveBeenCalledWith('someId');
