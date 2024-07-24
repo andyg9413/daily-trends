@@ -12,6 +12,7 @@ export class FeedEntity {
     updatedAt: { type: Date, required: false, default: Date.now },
     scrapped: { type: Boolean, required: false, default: false },
     isDeleted: { type: Boolean, required: false, default: false },
+    description: { type: String, required: false },
   });
 
   private static feedModel: Model<IFeed> = model<IFeed>(

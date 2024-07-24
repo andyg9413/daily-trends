@@ -45,4 +45,13 @@ export class FeedRepository implements IRepositoryInterface {
     }
     return feedUpdated;
   }
+
+  async findOneFeed(feed: Partial<IFeed>): Promise<IFeed | null> {
+    const feedFound = await this.feedEntity.getModel().findOne(feed);
+    if (feedFound === null) {
+      console.log('Feed not found');
+      return null;
+    }
+    return feedFound;
+  }
 }

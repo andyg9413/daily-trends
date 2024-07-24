@@ -10,8 +10,6 @@ const app: Application = express();
 const PORT: string | number = process.env.PORT || 3000;
 const MONGO_DB_URI: string =
   process.env.MONGO_DB_URI || 'mongodb://localhost:27017/daily-trends';
-const scrapCron = container.resolve('scrapCron');
-console.log(scrapCron);
 
 mongoose
   .connect(MONGO_DB_URI)
@@ -32,8 +30,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
-scrapCron.start();
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);

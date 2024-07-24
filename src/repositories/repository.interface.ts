@@ -7,4 +7,5 @@ export interface IRepositoryInterface {
   getFeed(id: string): Promise<IFeed>;
   updateFeed(id: string, feed: IFeed): Promise<IFeed>;
   deleteFeed(id: string): Promise<boolean>;
+  findOneFeed(feed: Partial<IFeed>): Promise<IFeed | null>;
 }

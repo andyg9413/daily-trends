@@ -35,4 +35,8 @@ export class FeedService {
     }
     return this.feedRepository.deleteFeed(id);
   }
+
+  async findOneFeed(feed: Partial<IFeed>): Promise<IFeed | null> {
+    return this.feedRepository.findOneFeed(feed);
+  }
 }
