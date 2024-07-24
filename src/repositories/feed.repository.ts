@@ -34,7 +34,13 @@ export class FeedRepository implements IRepositoryInterface {
 
   async getFeeds(page: number, limit: number): Promise<IFeed[]> {
     const skips = (page - 1) * limit;
-    return this.feedEntity.getModel().find().skip(skips).limit(limit).exec();
+    return this.feedEntity
+      .getModel()
+      .find()
+      .skip(skips)
+      .limit(limit)
+      .lean()
+      .exec();
   }
 
   async updateFeed(id: string, feed: UpdateFeedDto): Promise<IFeed> {

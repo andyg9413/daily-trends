@@ -9,4 +9,5 @@ export interface IFeed {
   scrapped?: boolean;
   isDeleted?: boolean;
   description?: string;
+  _id?: string;
 }
