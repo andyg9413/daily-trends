@@ -1,7 +1,7 @@
 import { FeedService } from '../src/services/feed.service';
 import { FeedRepository } from '../src/repositories/feed.repository';
 import { IFeed } from '../src/entities/feed.interface';
-import { CreateFeedDto, UpdateFeedDto } from '../dtos/feed.dto';
+import { CreateFeedDto, UpdateFeedDto } from '../src/dtos/feed.dto';
 import { FeedEntity } from '../src/entities/feed.entity';
 import { faker } from '@faker-js/faker';
 

@@ -18,10 +18,6 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-expressions': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': [
-      'error',
-      { allowArgumentsExplicitlyTypedAsAny: true },
-    ],
     'prettier/prettier': ['error', { singleQuote: true, semi: true }],
   },
 };

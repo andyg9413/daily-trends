@@ -20,7 +20,16 @@ app.use(express.json());
 
 app.use(scopePerRequest(container));
 
-app.use(loadControllers('controllers/*.ts', { cwd: __dirname }));
+app.use(loadControllers('controllers/*.controller.ts', { cwd: __dirname }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  next();
+});
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);

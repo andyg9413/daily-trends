@@ -11,6 +11,7 @@ export class FeedEntity {
     createdAt: { type: Date, required: false, default: Date.now },
     updatedAt: { type: Date, required: false, default: Date.now },
     scrapped: { type: Boolean, required: false, default: false },
+    isDeleted: { type: Boolean, required: false, default: false },
   });
 
   private static feedModel: Model<IFeed> = model<IFeed>(
@@ -18,7 +19,7 @@ export class FeedEntity {
     FeedEntity.feedSchema,
   );
 
-  static get Model(): Model<IFeed> {
+  getModel(): Model<IFeed> {
     return FeedEntity.feedModel;
   }
 }

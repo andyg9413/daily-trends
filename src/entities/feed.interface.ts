@@ -7,4 +7,5 @@ export interface IFeed {
   createdAt?: Date;
   updatedAt?: Date;
   scrapped?: boolean;
+  isDeleted?: boolean;
 }
