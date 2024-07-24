@@ -2,7 +2,7 @@ import { FeedService } from '../services/feed.service';
 import { DELETE, GET, PATCH, POST, route } from 'awilix-express';
 import { IFeed } from '../entities/feed.interface';
 import { Request, Response } from 'express';
-import { CreateFeedDto, GetFeedDto, UpdateFeedDto } from '../dtos/feed.dto';
+import { CreateFeedDto, UpdateFeedDto } from '../dtos/feed.dto';
 import { ScrapperService } from '../scrapping/scrapper.service';
 
 @route('/feeds')
@@ -34,14 +34,14 @@ export class FeedController {
 
   @GET()
   @route('/:id')
-  async getFeed(req: Request<GetFeedDto>, res: Response<IFeed>) {
+  async getFeed(req: Request, res: Response<IFeed>) {
     res.send(await this.feedService.getFeed(req.params.id));
   }
 
   @PATCH()
   @route('/:id')
   async updateFeed(
-    req: Request<GetFeedDto, any, UpdateFeedDto>,
+    req: Request<any, any, UpdateFeedDto>,
     res: Response<IFeed>,
   ) {
     res.send(await this.feedService.updateFeed(req.params.id, req.body));
@@ -49,29 +49,19 @@ export class FeedController {
 
   @DELETE()
   @route('/:id')
-  async deleteFeed(req: Request<GetFeedDto>, res: Response<boolean>) {
+  async deleteFeed(req: Request, res: Response<boolean>) {
     res.send(await this.feedService.deleteFeed(req.params.id));
   }
 
   @GET()
   @route('/dashboard/news')
   async dashboard(req: Request, res: Response) {
-    try {
-      res.send(await this.scrapperService.getAndSaveAllFeeds(5));
-    } catch (error) {
-      console.error('Error getting and saving feeds:', error);
-      res.status(400).send({ message: 'Error getting and saving feeds' });
-    }
+    res.send(await this.scrapperService.getAndSaveAllFeeds(5));
   }
 
   @POST()
   @route('/scrap')
   async scrapFeed(req: Request, res: Response) {
-    try {
-      res.send(await this.scrapperService.getAndSaveAllFeeds());
-    } catch (error) {
-      console.error('Error getting and saving feeds:', error);
-      res.status(400).send({ message: 'Error getting and saving feeds' });
-    }
+    res.send(await this.scrapperService.getAndSaveAllFeeds());
   }
 }
