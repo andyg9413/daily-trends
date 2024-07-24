@@ -32,9 +32,9 @@ describe('FeedService', () => {
   it('should get feeds', async () => {
     mockFeedRepository.getFeeds.mockResolvedValue([mockFeed]);
 
-    const result = await feedService.getFeeds();
+    const result = await feedService.getFeeds(1, 10);
 
-    expect(result).toEqual([mockFeed]);
+    expect(result).toEqual({ feeds: [mockFeed], total: 1 });
     expect(mockFeedRepository.getFeeds).toHaveBeenCalledTimes(1);
   });
 
@@ -51,7 +51,6 @@ describe('FeedService', () => {
     mockFeedRepository.getFeed.mockResolvedValue(mockFeed);
 
     const result = await feedService.getFeed('someId');
-    console.log(result);
 
     expect(result).toEqual(mockFeed);
     expect(mockFeedRepository.getFeed).toHaveBeenCalledWith('someId');
@@ -94,7 +93,7 @@ describe('FeedService', () => {
       new Error('Error getting feeds'),
     );
 
-    await expect(feedService.getFeeds()).rejects.toThrowError(
+    await expect(feedService.getFeeds(1, 10)).rejects.toThrowError(
       'Error getting feeds',
     );
 
